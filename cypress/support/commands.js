@@ -2,6 +2,10 @@ Cypress.Commands.add("login", (email, password) => {
 
   })
 
+Cypress.Commands.add("loginwindow", (email, password) => {
+  cy.get('[data-testid=login-btn]').click()
+  })
+  
 
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
