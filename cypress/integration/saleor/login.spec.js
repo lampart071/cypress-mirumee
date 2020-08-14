@@ -1,61 +1,76 @@
-/// <reference types="cypress" />
-
-context('Window', () => {
+context("Login Page", () => {
   beforeEach(() => {
-    cy.visit('https://demo.saleor.io')
-    cy.loginwindow()
-  })
-  
-  it('home page contains login icon', () => {
-    cy.get('[data-testid=login-btn]')
-    .should('be.visible')
-  })
+    cy.loginpage();
+    cy.get('input[name="email"]').as("email");
+    cy.get('input[name="password"]').as("password");
+    cy.get(".button  ").as("button");
+  });
 
-  it('login window has elements', () => {
-    cy.get('.overlay__header-text').should('have.text', 'Saleor account')
-    cy.get('.active-tab').should('have.text', 'Sign in to account')
-    cy.get('.login__tabs > span:nth-of-type(2)').should('have.text', 'Register new account')
-    cy.get('.button  ').should('have.text', 'Sign in')
-    cy.get('.login__content__password-reminder > p').should(($p) => {
-    expect($p).to.have.length(1)
-    expect($p.first()).to.contain('Have you forgotten your password?')
-    expect($p.addClass('.u-link')).to.contain('Click Here')
-    // use jquery's map to grab all of their classes
-    // jquery's map returns a new jquery object
-    // const classes = $p.map((i, el) => {
-    //   return Cypress.$(el).attr('class')
-    // })
-    // call classes.get() to make this a plain array
-    // expect(classes.get()).to.deep.equals('.u-link').debug()
-    })
-  })
+  // it("home page contains login icon", () => {
+  //   cy.get("[data-testid=login-btn]").should("be.visible");
+  // });
 
-  it('email is visible and has value', () => {
-    cy.get('input[name="email"]')
-    .should('be.visible')
-    .should('have.value', 'admin@example.com')
-  })
+  // it("login window has elements", () => {
+  //   cy.get(".overlay__header-text").should("have.text", "Saleor account");
+  //   cy.get(".active-tab").should("have.text", "Sign in to account");
+  //   cy.get(".login__tabs > span:nth-of-type(2)").should(
+  //     "have.text",
+  //     "Register new account"
+  //   );
+  //   cy.get("@button").should("be.enabled").should("have.text", "Sign in");
+  //   cy.get(".login__content__password-reminder > p").should(($p) => {
+  //     expect($p).to.have.length(1);
+  //     expect($p.first()).to.contain("Have you forgotten your password?");
+  //     expect($p.addClass(".u-link")).to.contain("Click Here");
+  //   });
+  // });
 
-  it('password is visible and has value', () => {
-    cy.get('input[name="password"]')
-    .should('be.visible')
-    .should('have.attr', 'type', 'password')
-    .should('have.value', 'admin')
-  })
+  // it("email is visible and has value", () => {
+  //   cy.get("@email")
+  //     .should("be.visible")
+  //     .should("have.attr", "type", "email")
+  //     .should("have.value", Cypress.env("correctEmail"));
+  // });
 
-  // it('links to Register', () => {
-  // })
-	
-  // it('requires email', () => {
-  // })
+  // it("password is visible and has value", () => {
+  //   cy.get("@password")
+  //     .should("be.visible")
+  //     .should("have.attr", "type", "password")
+  //     .should("have.value", "admin");
+  // });
 
-  // it('requires password', () => {
-  // })
+  it("email validation", () => {
+    cy.get("@email").clear();
+    cy.get("@button").click();
+    cy.get(":nth-child(1) > .input__error").should("be.visible");
+    cy.get("@email").type(Cypress.env("incorrectEmailNameOne"));
+    cy.get(":nth-child(1) > .input__error").should("be.visible");
+    cy.get("@email").clear().type(Cypress.env("incorrectEmailNameTwo"));
+    cy.get(":nth-child(1) > .input__error").should("be.visible");
+    cy.get("@email").clear().type(Cypress.env("correctEmail"));
+    cy.get(":nth-child(1) > .input__error").should("not.be.visible");
+  });
 
-  // it('requires valid username and password', () => {
-  // })
-  
-  // it('navigates to succesful login', () => {
-  // })
-  
-})
+  // it("requires password", () => {});
+
+  it("requires valid username and password", () => {
+    cy.get("@email").clear().type(Cypress.env("incorrectEmailCredentials"));
+    cy.get("@password").clear().type(Cypress.env("correctPassword"));
+    cy.get("@button").click();
+    cy.get('.form-error').should('be.visible');
+    cy.get("@email").clear().type(Cypress.env("correctEmail"));
+    cy.get("@password").clear().type(Cypress.env("incorrectPassword"));
+    cy.get("@button").click();
+    cy.get('.form-error').should('be.visible');
+    cy.get("@email").clear().type(Cypress.env("incorrectEmailCredentials"));
+    cy.get("@password").clear().type(Cypress.env("incorrectPassword"));
+    cy.get("@button").click();
+    cy.get('.form-error').should('be.visible');
+    cy.get("@email").clear().type(Cypress.env("correctEmail"));
+    cy.get("@password").clear().type(Cypress.env("correctPassword"));
+    cy.get("@button").click();
+    cy.get('.form-error').should('not.be.visible');
+  });
+
+  // it("navigates to succesful login", () => {});
+});

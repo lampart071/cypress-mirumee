@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 context('Window', () => {
   beforeEach(() => {
     cy.visit('https://demo.saleor.io')

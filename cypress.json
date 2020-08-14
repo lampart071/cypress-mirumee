@@ -1,1 +1,12 @@
-{}
+{
+    "env": {
+        "correctName": "Bob Ross",
+        "incorrectName": "Bobbbbb",
+        "correctEmail": "admin@example.com",
+        "incorrectEmailNameOne": "bbbb",
+        "incorrectEmailNameTwo": "bbbb@",
+        "incorrectEmailCredentials": "test@example  .com",
+        "correctPassword": "admin",
+        "incorrectPassword": "Oooooo" 
+      }
+}
