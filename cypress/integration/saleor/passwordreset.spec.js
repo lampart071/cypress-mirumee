@@ -3,7 +3,7 @@ context("Password Reset", () => {
     cy.resetpage();
     cy.get(".u-link").click();
     cy.get('input[name="email"]').as("email");
-    cy.get(".password-reset-form__button > .button > span").as("button");
+    cy.get(".password-reset-form__button > .button").as("button");
   });
 
   it("links to Reset Password", () => {
@@ -19,6 +19,6 @@ context("Password Reset", () => {
       .should("be.visible")
       .should("have.attr", "type", "email")
       .should("not.have.value");
-    cy.get("button").should("be.enabled").should("have.text", "Reset password");
+    cy.get("@button").should("be.enabled").should("have.text", "Reset password");
   });
 });

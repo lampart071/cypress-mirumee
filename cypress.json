@@ -1,12 +1,10 @@
 {
-    "env": {
-        "correctName": "Bob Ross",
-        "incorrectName": "Bobbbbb",
-        "correctEmail": "admin@example.com",
-        "incorrectEmailNameOne": "bbbb",
-        "incorrectEmailNameTwo": "bbbb@",
-        "incorrectEmailCredentials": "test@example  .com",
-        "correctPassword": "admin",
-        "incorrectPassword": "Oooooo" 
-      }
+  "env": {
+    "correctEmail": "admin@example.com",
+    "incorrectEmail": "test@example.com",
+    "incorrectEmailSyntaxOne": "bbbb",
+    "incorrectEmailSyntaxTwo": "bbbb@",
+    "correctPassword": "admin",
+    "incorrectPassword": "Oooooo"
+  }
 }
